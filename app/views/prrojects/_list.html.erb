@@ -1,0 +1,78 @@
+<%- model_class = Prroject -%>
+
+<div class="page-header">
+
+<h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+
+</div>
+
+<table class="table table-striped">
+
+<thead>
+
+<tr>
+
+<th><%= model_class.human_attribute_name(:title) %></th>
+
+<th><%= model_class.human_attribute_name(:details) %></th>
+
+<th><%= model_class.human_attribute_name(:expected_completion_date) %></th>
+
+<th><%=t '.actions', :default => t("helpers.actions") %></th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<% @prrojects.each do |prroject| %>
+
+<tr>
+
+<td><%= link_to prroject.title,
+
+tenant_prroject_path(prroject, tenant_id: @tenant.id), class: 'main-link' %></td>
+
+<td><%= prroject.details %></td>
+
+<td><%= prroject.expected_completion_date %></td>
+
+<td>
+
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+
+edit_tenant_prroject_path(prroject, tenant_id: @tenant.id), :class => 'btn btn-default btn-xs' %>
+
+<%= link_to 'Edit Users', users_tenant_prroject_path(prroject, tenant_id: @tenant.id),
+
+:class => 'btn btn-default btn-xs' %>
+
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+
+tenant_prroject_path(prroject, tenant_id: @tenant.id),
+
+:method => :delete,
+
+:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm",
+
+:default => 'Are you sure?')) },
+
+:class => 'btn btn-xs btn-danger' %>
+
+</td>
+
+</tr>
+
+<% end %>
+
+</tbody>
+
+</table>
+
+<%= link_to 'New prroject', new_tenant_prroject_path(tenant_id: @tenant.id),
+
+:class => 'btn btn-primary' %>
+
+
+
