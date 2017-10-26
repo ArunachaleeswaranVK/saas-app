@@ -14,6 +14,14 @@
   <dd><%= @prroject.tenant_id %></dd>
 </dl>
 
+<h3>Artifacts</h3>
+
+<%= render 'artifacts/list', artifacts: @prroject.artifacts %>
+
+<br />
+
+<br />
+
 <%= link_to t('Back to Organization Page', :default => t("helpers.links.back")),
               root_path, :class => 'btn btn-default'  %>
 <%= link_to t('.edit', :default => t("helpers.links.edit")),
