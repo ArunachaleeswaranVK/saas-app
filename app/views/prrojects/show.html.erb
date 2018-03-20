@@ -26,6 +26,9 @@
               root_path, :class => 'btn btn-default'  %>
 <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_tenant_prroject_path(@prroject,@prroject.tenant_id), :class => 'btn btn-default' %>
+<%= link_to 'Edit prroject Users',
+
+users_tenant_prroject_path(tenant_id: @prroject.tenant_id, id: @prroject.id), :class => 'btn btn-default' %>
 <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
               tenant_prroject_path(@prroject,@prroject.tenant_id),
               :method => 'delete',

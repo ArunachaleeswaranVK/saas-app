@@ -5,6 +5,8 @@ class Tenant < ActiveRecord::Base
     has_many :prrojects, dependent: :destroy
     validates_uniqueness_of :name
     validates_presence_of :name
+    has_one :payment
+    accepts_nested_attributes_for :payment
     
     def can_create_prrojects?
 

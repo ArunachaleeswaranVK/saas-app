@@ -46,7 +46,7 @@ tenant_prroject_path(prroject, tenant_id: @tenant.id), class: 'main-link' %></td
 
 edit_tenant_prroject_path(prroject, tenant_id: @tenant.id), :class => 'btn btn-default btn-xs' %>
 
-
+<%= link_to 'Edit Users', users_tenant_prroject_path(prroject, tenant_id: @tenant.id), :class => 'btn btn-default btn-xs' %>
 
 <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
 
@@ -72,13 +72,13 @@ tenant_prroject_path(prroject, tenant_id: @tenant.id),
 
 <% else %>
 
-<p class="lead">You don't have any projects</p>
+<p class="lead">You don't have any prrojects</p>
 
 <% end %>
 
 <% if (@tenant.can_create_prrojects?) %>
 
-<%= link_to 'New Project',
+<%= link_to 'New prroject',
 
 new_tenant_prroject_path(tenant_id: @tenant.id),
 

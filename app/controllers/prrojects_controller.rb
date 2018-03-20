@@ -1,12 +1,13 @@
 class PrrojectsController < ApplicationController
-  before_action :set_prroject, only: [:show, :edit, :update, :destroy]
-  before_action :set_tenant, only: [:show, :edit, :update, :destroy, :new, :create]
+  before_action :set_prroject, only: [:show, :edit, :update, :destroy, :users, :add_user]
+
+  before_action :set_tenant, only: [:show, :edit, :update, :destroy, :new, :create, :users, :add_user]
   before_action :verify_tenant
 
   # GET /prrojects
   # GET /prrojects.json
   def index
-    @prrojects = Prroject.all
+    @prrojects = Prroject.by_user_plan_and_tenant(params[:tenant_id], current_user)
   end
 
   # GET /prrojects/1
@@ -27,6 +28,7 @@ class PrrojectsController < ApplicationController
   # POST /prrojects.json
   def create
     @prroject = Prroject.new(prroject_params)
+    @prroject.users << current_user
 
     respond_to do |format|
       if @prroject.save
@@ -61,6 +63,42 @@ class PrrojectsController < ApplicationController
       format.html { redirect_to root_url, notice: 'Prroject was successfully destroyed.' }
      
     end
+  end
+  
+  def users
+
+    @prroject_users = (@prroject.users + (User.where(tenant_id: @tenant.id, is_admin: true))) - [current_user]
+    
+    @other_users = @tenant.users.where(is_admin: false) - (@prroject_users + [current_user])
+
+  end
+  
+  def add_user
+  
+  @prroject_user = Userprroject.new(user_id: params[:user_id], prroject_id: @prroject.id)
+  
+  respond_to do |format|
+  
+  if @prroject_user.save
+  
+  format.html { redirect_to users_tenant_prroject_url(id: @prroject.id,
+  
+  tenant_id: @prroject.tenant_id),
+  
+  notice: 'User was successfully added to prroject' }
+  
+  else
+  
+  format.html { redirect_to users_tenant_prroject_url(id: @prroject.id,
+  
+  tenant_id: @prroject.tenant_id),
+  
+  error: 'User was not added to prroject' }
+  
+  end
+  
+  end
+  
   end
 
   private

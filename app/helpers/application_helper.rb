@@ -38,4 +38,12 @@ ALERT_TYPES = [:success, :info, :warning, :danger] unless const_defined?(:ALERT_
     link_to artifact_key, "#{artifact_key}", class: 'main-link', target: 'new'
   
   end
+  
+  def class_name_for_tenant_form(tenant)
+  
+    return "cc_form" if tenant.payment.blank?
+    
+    ""
+  
+  end
 end
